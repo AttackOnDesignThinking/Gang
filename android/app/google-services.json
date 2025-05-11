@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "828165643684",
+    "project_id": "mannapin-48b47",
+    "storage_bucket": "mannapin-48b47.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828165643684:android:037bbf5572d36c65acb531",
+        "android_client_info": {
+          "package_name": "com.example.temp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSq-nV_ION-RTBH9Auf8zJXYu7RvhbnqE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
