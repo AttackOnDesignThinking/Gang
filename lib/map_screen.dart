@@ -65,7 +65,7 @@ class _BubbleMapPageState extends State<BubbleMapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Bubble Marker Map')),
+      appBar: AppBar(title: const Text('지도')),
       body: GoogleMap(
         initialCameraPosition: const CameraPosition(
           target: LatLng(37.526, 126.93),

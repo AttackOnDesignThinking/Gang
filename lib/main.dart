@@ -30,17 +30,24 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginScreen(),
         '/map': (context) => const BubbleMapPage(),
-        '/match_requst': (context) => const MatchRequestPage(),
         '/pin_page': (context) => const PinPage(),
         '/met_page': (context) => const MetPage(),
         '/chat_support_end_page': (context) => const ChatSupportEndPage(),
       },
-      // onGenerateRoute는 마커 클릭 등에서 locationId 등 파라미터 넘길 때 활용
       onGenerateRoute: (settings) {
         if (settings.name == '/profile_list') {
           final args = settings.arguments as Map<String, dynamic>;
           return MaterialPageRoute(
             builder: (context) => ProfileListScreen(locationId: args['locationId']),
+          );
+        }
+        if (settings.name == '/match_request') {
+          final args = settings.arguments as Map<String, dynamic>;
+          return MaterialPageRoute(
+            builder: (context) => MatchRequestPage(
+              userName: args['userName'] ?? '',
+              // placeName 등 추가 파라미터 필요시 여기에
+            ),
           );
         }
         return null;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'match_request_page.dart'; // 반드시 import!
 
 class ProfileListScreen extends StatelessWidget {
   final int locationId;
@@ -94,7 +95,16 @@ class ProfileListScreen extends StatelessWidget {
                               ),
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => MatchRequestPage(
+                                      userName: profile['name'],
+                                    ),
+                                  ),
+                                );
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.grey[100],
                                 elevation: 0,

@@ -11,7 +11,7 @@ class ChatSupportEndPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF7F7F7),
       appBar: AppBar(
-        title: const Text('대화 보조 및 헤어지기', style: TextStyle(color: Color(0xFFBDBDBD))),
+        title: const Text('', style: TextStyle(color: Color(0xFFBDBDBD))),
         backgroundColor: const Color(0xFFF7F7F7),
         elevation: 0,
       ),
@@ -39,29 +39,33 @@ class ChatSupportEndPage extends StatelessWidget {
             const SizedBox(height: 10),
             const Text(
               "이런 주제는 어때요?\n\n"
-              "- 정언명령에 대하여 어떻게 생각하세요?\n"
-              "- 처음 보는 사람과 가장 빨리 친해지는 방법이 무엇이라고 생각하세요?",
+                  "- 정언명령에 대하여 어떻게 생각하세요?\n"
+                  "- 처음 보는 사람과 가장 빨리 친해지는 방법이 무엇이라고 생각하세요?",
               style: TextStyle(fontSize: 13, color: Colors.black87),
             ),
             const SizedBox(height: 28),
-            // 헤어지기
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 18),
-              decoration: BoxDecoration(
-                color: red,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Text(
-                "헤어지기",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+            // 헤어지기 (탭하면 지도 화면으로!)
+            GestureDetector(
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/map');
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 18),
+                decoration: BoxDecoration(
+                  color: red,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Text(
+                  "헤어지기",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 10),
-            
           ],
         ),
       ),

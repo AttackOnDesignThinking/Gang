@@ -9,7 +9,7 @@ class MetPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF7F7F7),
       appBar: AppBar(
-        title: const Text('만났어요', style: TextStyle(color: Color(0xFFBDBDBD))),
+        title: const Text("", style: TextStyle(color: Color(0xFFBDBDBD))),
         backgroundColor: const Color(0xFFF7F7F7),
         elevation: 0,
       ),

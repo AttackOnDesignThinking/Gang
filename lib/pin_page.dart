@@ -1,71 +1,104 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'met_page.dart';
 
-class PinPage extends StatelessWidget {
+class PinPage extends StatefulWidget {
   const PinPage({super.key});
+
+  @override
+  State<PinPage> createState() => _PinPageState();
+}
+
+class _PinPageState extends State<PinPage> {
+  static const LatLng initialLatLng = LatLng(37.5271, 126.9326);
+  LatLng? selectedLatLng;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF7F7F7),
       appBar: AppBar(
-        title: const Text('핀 꽂기', style: TextStyle(color: Color(0xFFBDBDBD))),
+        title: const Text('', style: TextStyle(color: Color(0xFFBDBDBD))),
         backgroundColor: const Color(0xFFF7F7F7),
         elevation: 0,
       ),
-      body: Center(
-        child: GestureDetector(
-          onTap: () {
-            // 지도 핀을 "꽂았다" 가정하고 만났어요 페이지로 이동
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const MetPage()),
-            );
-          },
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                width: 270,
-                height: 340,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.grey[200],
-                  image: const DecorationImage(
-                    image: AssetImage('assets/yeouido_map_sample.png'),
-                    fit: BoxFit.cover,
+      body: Column(
+        children: [
+          const SizedBox(height: 16),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.95,
+            height: 750, // 지도 높이 확장
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+              color: Colors.grey[200],
+            ),
+            clipBehavior: Clip.hardEdge,
+            child: Stack(
+              children: [
+                GoogleMap(
+                  initialCameraPosition: const CameraPosition(
+                    target: initialLatLng,
+                    zoom: 16,
+                  ),
+                  markers: {
+                    if (selectedLatLng != null)
+                      Marker(
+                        markerId: const MarkerId('selected'),
+                        position: selectedLatLng!,
+                        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+                      ),
+                  },
+                  onTap: (LatLng latLng) {
+                    setState(() {
+                      selectedLatLng = latLng;
+                    });
+                  },
+                  zoomControlsEnabled: false,
+                  myLocationButtonEnabled: false,
+                ),
+                const Positioned(
+                  bottom: 12,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Text(
+                      '만나고 싶은 장소를 클릭하세요',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              // 여러 핀(예시)
-              const Positioned(
-                left: 70, top: 90,
-                child: Icon(Icons.park, color: Colors.red, size: 40),
-              ),
-              const Positioned(
-                left: 150, top: 50,
-                child: Icon(Icons.circle, color: Color(0xFF19C37D), size: 18),
-              ),
-              const Positioned(
-                left: 100, top: 210,
-                child: Icon(Icons.circle, color: Color(0xFF19C37D), size: 18),
-              ),
-              const Positioned(
-                left: 190, top: 140,
-                child: Icon(Icons.circle, color: Color(0xFF19C37D), size: 18),
-              ),
-              // 핀 꽂기 안내(임시)
-              const Positioned(
-                bottom: 20,
-                child: Text(
-                  '지도를 눌러서 핀을 꽂아보세요\n(터치 시 다음 단계)',
-                  style: TextStyle(fontSize: 15, color: Colors.black87),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+          const SizedBox(height: 28),
+          ElevatedButton(
+            onPressed: selectedLatLng == null
+                ? null
+                : () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const MetPage()),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: selectedLatLng == null
+                  ? Colors.grey[400]
+                  : const Color(0xFF19C37D),
+              minimumSize: const Size(160, 46),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(9),
+              ),
+            ),
+            child: const Text(
+              '이 장소로 만나요!',
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+          ),
+        ],
       ),
     );
   }
