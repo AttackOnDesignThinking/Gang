@@ -1,58 +1,78 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'custom_marker.dart';
 import 'profile_list_screen.dart';
-//나중에 네이버 지도로 바꾸자
 
-class MapScreen extends StatefulWidget {
+class BubbleMapPage extends StatefulWidget {
+  const BubbleMapPage({Key? key}) : super(key: key);
+
   @override
-  _MapScreenState createState() => _MapScreenState();
+  State<BubbleMapPage> createState() => _BubbleMapPageState();
 }
 
-class _MapScreenState extends State<MapScreen> {
-  late GoogleMapController mapController;
+class _BubbleMapPageState extends State<BubbleMapPage> {
+  late GoogleMapController _mapController;
+  final Set<Marker> _markers = {};
 
-  final LatLng _center = const LatLng(37.5215, 126.9249); // 여의도 위치
-  final List<Map<String, dynamic>> locations = [
-    {'id': 1, 'name': '여의도', 'lat': 37.5215, 'lng': 126.9249, 'users': 50},
-    {'id': 2, 'name': '샛강', 'lat': 37.5165, 'lng': 126.9289, 'users': 30},
+  final List<Map<String, dynamic>> markerData = [
+    {
+      'lat': 37.528316,
+      'lng': 126.932859,
+      'value': 50,
+      'locationId': 1, // locationId 추가
+    },
+    {
+      'lat': 37.521907,
+      'lng': 126.924964,
+      'value': 30,
+      'locationId': 2, // locationId 추가
+    },
   ];
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+  @override
+  void initState() {
+    super.initState();
+    _initMarkers();
   }
 
-  void _onCircleTap(int locationId) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ProfileListScreen(locationId: locationId),
-      ),
-    );
+  Future<void> _initMarkers() async {
+    for (var data in markerData) {
+      Uint8List markerIcon = await createBubbleMarker(
+        data['value'],
+        Colors.amber,
+      );
+      _markers.add(
+        Marker(
+          markerId: MarkerId('${data['lat']},${data['lng']}'),
+          position: LatLng(data['lat'], data['lng']),
+          icon: BitmapDescriptor.fromBytes(markerIcon),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    ProfileListScreen(locationId: data['locationId']),
+              ),
+            );
+          },
+        ),
+      );
+    }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('지도 화면'),
-      ),
+      appBar: AppBar(title: const Text('Bubble Marker Map')),
       body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 14.0,
+        initialCameraPosition: const CameraPosition(
+          target: LatLng(37.526, 126.93),
+          zoom: 14,
         ),
-        circles: locations.map((location) {
-          return Circle(
-            circleId: CircleId(location['id'].toString()),
-            center: LatLng(location['lat'], location['lng']),
-            radius: 100, // 반경
-            fillColor: Color.fromRGBO(255, 255, 0, 0.5), // Yellow with 50% opacity
-            strokeColor: Colors.yellow,
-            strokeWidth: 2,
-            onTap: () => _onCircleTap(location['id']),
-          );
-        }).toSet(),
+        onMapCreated: (controller) => _mapController = controller,
+        markers: _markers,
       ),
     );
   }
