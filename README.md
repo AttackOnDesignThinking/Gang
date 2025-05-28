@@ -1,6 +1,6 @@
 # temp
 
-디자인적사고 수업의 Mannapin 프로젝트입니다.
+디자인적사고 수업의 Dolphins 프로젝트입니다.
 
 ## Getting Started
 
