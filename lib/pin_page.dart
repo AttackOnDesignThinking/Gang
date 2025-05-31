@@ -12,6 +12,7 @@ class PinPage extends StatefulWidget {
 class _PinPageState extends State<PinPage> {
   static const LatLng initialLatLng = LatLng(37.5271, 126.9326);
   LatLng? selectedLatLng;
+  GoogleMapController? _mapController;
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +54,16 @@ class _PinPageState extends State<PinPage> {
                       selectedLatLng = latLng;
                     });
                   },
-                  zoomControlsEnabled: false,
+                  zoomControlsEnabled: true, // 확대/축소 컨트롤 버튼 활성화
                   myLocationButtonEnabled: false,
+                  onMapCreated: (controller) {
+                    _mapController = controller;
+                  },
+                  // 제스처로 확대/축소 가능 (기본값 true, 명시적으로 추가)
+                  zoomGesturesEnabled: true,
+                  scrollGesturesEnabled: true,
+                  tiltGesturesEnabled: true,
+                  rotateGesturesEnabled: true,
                 ),
                 const Positioned(
                   bottom: 12,
@@ -94,7 +103,7 @@ class _PinPageState extends State<PinPage> {
               ),
             ),
             child: const Text(
-              '이 장소로 만나요!',
+              '이 장소에서 만나요!',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),

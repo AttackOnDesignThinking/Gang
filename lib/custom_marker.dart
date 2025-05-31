@@ -7,7 +7,7 @@ import 'dart:ui' as ui;
 Future<Uint8List> createBubbleMarker(int value, Color color) async {
   final ui.PictureRecorder recorder = ui.PictureRecorder();
   final Canvas canvas = Canvas(recorder);
-  const double size = 80;
+  const double size = 160;
 
   // 원 그리기
   final Paint paint = Paint()..color = color;

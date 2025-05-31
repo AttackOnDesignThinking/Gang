@@ -36,6 +36,23 @@ class ProfileListScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFF5F5F5),
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black87),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          '프로필 목록',
+          style: TextStyle(
+            color: Colors.black87,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
         itemCount: profiles.length,
@@ -106,7 +123,7 @@ class ProfileListScreen extends StatelessWidget {
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey[100],
+                                backgroundColor: Colors.green, // 초록색으로 변경
                                 elevation: 0,
                                 shadowColor: Colors.transparent,
                                 shape: RoundedRectangleBorder(
@@ -120,7 +137,7 @@ class ProfileListScreen extends StatelessWidget {
                               child: const Text(
                                 'Meet',
                                 style: TextStyle(
-                                  color: Colors.black54,
+                                  color: Colors.white, // 텍스트색도 흰색으로 변경
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16,
                                 ),
