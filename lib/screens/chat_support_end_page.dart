@@ -21,7 +21,14 @@ class ChatSupportEndPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 대화보조
-            Container(
+            GestureDetector( // <--- GestureDetector로 Container를 감쌉니다.
+              onTap: () {
+                // '/daily_conversation' 라우트로 이동합니다.
+                // pushReplacementNamed를 사용하면 ChatSupportEndPage가 스택에서 제거됩니다.
+                // 뒤로가기로 ChatSupportEndPage로 돌아오게 하려면 pushNamed를 사용하세요.
+                Navigator.pushReplacementNamed(context, '/daily_conversation');
+              },
+            child: Container(
               padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 18),
               decoration: BoxDecoration(
                 color: green,
@@ -36,6 +43,8 @@ class ChatSupportEndPage extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          
             const SizedBox(height: 10),
             const Text(
               "이런 주제는 어때요?\n\n"

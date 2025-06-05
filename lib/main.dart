@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-import 'login_screen.dart';
-import 'map_screen.dart';
-import 'match_request_page.dart';
-import 'chat_support_end_page.dart';
-import 'met_page.dart';
-import 'pin_page.dart';
-import 'profile_list_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/map_screen.dart';
+import 'screens/match_request_page.dart';
+import 'screens/chat_support_end_page.dart';
+import 'screens/met_page.dart';
+import 'screens/pin_page.dart';
+import 'screens/profile_list_screen.dart';
+import 'screens/daily_conversation_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
         '/pin_page': (context) => const PinPage(),
         '/met_page': (context) => const MetPage(),
         '/chat_support_end_page': (context) => const ChatSupportEndPage(),
+        '/daily_conversation': (context) => const DailyConversationScreen(),
+        
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/profile_list') {
