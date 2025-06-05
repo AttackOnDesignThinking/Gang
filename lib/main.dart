@@ -9,7 +9,8 @@ import 'screens/chat_support_end_page.dart';
 import 'screens/met_page.dart';
 import 'screens/pin_page.dart';
 import 'screens/profile_list_screen.dart';
-import 'screens/meeting_coordination.dart';
+import 'screens/daily_conversation_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
         '/pin_page': (context) => const PinPage(),
         '/met_page': (context) => const MetPage(),
         '/chat_support_end_page': (context) => const ChatSupportEndPage(),
-        '/meeting_coordination': (context) => const MeetingCoordinationScreen(),
+        '/daily_conversation': (context) => const DailyConversationScreen(),
+        
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/profile_list') {
