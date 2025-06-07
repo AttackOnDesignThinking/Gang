@@ -38,7 +38,7 @@ Future<void> showMatchAcceptedDialog(
                   width: 80,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF19C37D),
+                      backgroundColor: const Color(0xFF3497FA),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),

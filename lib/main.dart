@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'screens/chat_support_end_page.dart';
+import 'screens/firebase_options.dart';
 
-import 'login_screen.dart';
-import 'map_screen.dart';
-import 'match_request_page.dart';
-import 'chat_support_end_page.dart';
-import 'met_page.dart';
-import 'pin_page.dart';
-import 'profile_list_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/map_screen.dart';
+import 'screens/match_request_page.dart';
+import 'screens/met_page.dart';
+import 'screens/pin_page.dart';
+import 'screens/profile_list_screen.dart';
+import 'screens/chat_topic_suggestion.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,10 +30,11 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginScreen(),
-        '/map': (context) => const BubbleMapPage(),
+        '/map_screen': (context) => const BubbleMapPage(),
         '/pin_page': (context) => const PinPage(),
         '/met_page': (context) => const MetPage(),
         '/chat_support_end_page': (context) => const ChatSupportEndPage(),
+        '/chat_topic_suggestion' : (context) => const ChatTopicSuggestionPage()
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/profile_list') {

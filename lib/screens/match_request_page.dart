@@ -41,10 +41,17 @@ class MatchRequestPage extends StatelessWidget {
               zoom: 16,
             ),
             markers: {
-              Marker(
-                markerId: const MarkerId('park'),
-                position: parkLatLng,
-                icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+              // 상대방의 구체적인 위치 마커는 표시하지 않음
+            },
+            circles: {
+              // 반경 50m 원
+              Circle(
+                circleId: const CircleId('user_area'),
+                center: parkLatLng,
+                radius: 100, // 50m
+                fillColor: const Color(0x553497FA), // 반투명 파란색 #3497FA + alpha
+                strokeColor: const Color(0xFF3497FA),
+                strokeWidth: 2,
               ),
             },
             zoomControlsEnabled: false,
@@ -90,7 +97,7 @@ class MatchRequestPage extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF19C37D),
+                          backgroundColor: const Color(0xFF3497FA), // 이미지와 동일한 파란색
                           minimumSize: const Size(80, 38),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -104,7 +111,7 @@ class MatchRequestPage extends StatelessWidget {
                           Navigator.pushNamed(context, '/pin_page');
                         },
                         child: const Text(
-                          '예',
+                          '확인',
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                       ),

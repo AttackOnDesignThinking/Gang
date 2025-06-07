@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'custom_marker.dart';
+import '../widgets/custom_marker.dart';
 import 'profile_list_screen.dart';
 
 class BubbleMapPage extends StatefulWidget {
@@ -17,18 +17,17 @@ class _BubbleMapPageState extends State<BubbleMapPage> {
 
   final List<Map<String, dynamic>> markerData = [
     {
-      'lat': 37.528316,
-      'lng': 126.932859,
-      'value': 50,
-      'locationId': 1, // locationId 추가
-    },
-    {
-      'lat': 37.521907,
-      'lng': 126.924964,
-      'value': 30,
-      'locationId': 2, // locationId 추가
+      'lat': 37.5245,
+      'lng': 126.928,
+      'value': 90,
+      'locationId': 1,
     },
   ];
+
+  double getCircleSize(int value) =>
+      60 + (value.clamp(0, 100) / 100) * 60; // 60~120
+  double getFontSize(int value) =>
+      18 + (value.clamp(0, 100) / 100) * 16; // 18~34
 
   @override
   void initState() {
@@ -38,6 +37,8 @@ class _BubbleMapPageState extends State<BubbleMapPage> {
 
   Future<void> _initMarkers() async {
     for (var data in markerData) {
+      double circleSize = getCircleSize(data['value']);
+      double fontSize = getFontSize(data['value']);
       Uint8List markerIcon = await createBubbleMarker(
         data['value'],
         Colors.amber,
@@ -65,7 +66,6 @@ class _BubbleMapPageState extends State<BubbleMapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('지도')),
       body: GoogleMap(
         initialCameraPosition: const CameraPosition(
           target: LatLng(37.526, 126.93),
